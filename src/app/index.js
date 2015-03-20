@@ -1,19 +1,56 @@
 'use strict';
 
 angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
-  'ngSanitize', 'ui.router', 'ngMaterial', 'sidebar'])
+  'ngSanitize', 'ui.router', 'ngMaterial', 'admin'])
 
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider,
                     $mdIconProvider) {
     $stateProvider
       .state('home', {
-        url: '/',
+        url: '',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        controllerAs: "vm"
+        controllerAs: 'vm',
+        abstract: true
+      })
+      .state('home.dashboard', {
+        url: '/dashboard',
+        templateUrl: 'app/partials/dashboard.html',
+        controller: 'DashboardController',
+        controllerAs: 'vm',
+        data: {
+          title: 'Dashboard'
+        }
+      })
+      .state('home.profile', {
+        url: '/profile',
+        templateUrl: 'app/partials/profile.html',
+        controller: 'ProfileController',
+        controllerAs: 'vm',
+        data: {
+          title: 'Profile'
+        }
+      })
+      .state('home.messages', {
+        url: '/messages',
+        controller: 'MessagesController',
+        controllerAs: 'vm',
+        templateUrl: 'app/partials/messages.html',
+        data: {
+          title: 'Messages'
+        }
+      })
+      .state('home.search', {
+        url: '/search',
+        templateUrl: 'app/partials/search.html',
+        controller: 'SearchController',
+        controllerAs: 'vm',
+        data: {
+          title: 'Search'
+        }
       });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/dashboard');
 
     $mdThemingProvider.theme('default')
       .primaryPalette('teal')
@@ -21,6 +58,5 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
 
     $mdIconProvider
       .defaultIconSet('assets/images/icons.svg', 128)
-      .icon('menu', 'assets/images/menu.svg', 24)
-      .icon('actions', 'assets/images/actions.svg', 24);
+      .icon('menu', 'assets/images/menu.svg', 24);
   });

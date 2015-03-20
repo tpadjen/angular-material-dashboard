@@ -1,26 +1,26 @@
 (function(){
 
   angular
-       .module('sidebar')
+       .module('admin')
        .controller('MainController', [
-          'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q',
+          'navService', '$mdSidenav', '$mdBottomSheet', '$log', '$q', '$state', '$mdToast',
           MainController
        ]);
 
-  function MainController( navService, $mdSidenav, $mdBottomSheet, $log, $q) {
+  function MainController(navService, $mdSidenav, $mdBottomSheet, $log, $q, $state, $mdToast) {
     var vm = this;
 
-    vm.selected = null;
     vm.menuItems = [ ];
     vm.selectItem = selectItem;
     vm.toggleItemsList = toggleItemsList;
     vm.showActions = showActions;
+    vm.title = $state.current.data.title;
+    vm.showSimpleToast = showSimpleToast;
 
     navService
           .loadAllItems()
-          .then( function( menuItems ) {
-            vm.menuItems    = [].concat(menuItems);
-            vm.selected = menuItems[0];
+          .then(function(menuItems) {
+            vm.menuItems = [].concat(menuItems);
           });
 
     function toggleItemsList() {
@@ -32,8 +32,9 @@
     }
 
     function selectItem (item) {
-      vm.selected = angular.isNumber(item) ? $scope.menuItems[item] : item;
+      vm.title = item.name;
       vm.toggleItemsList();
+      vm.showSimpleToast(vm.title);
     }
 
     function showActions($event) {
@@ -49,18 +50,29 @@
         });
 
         function SheetController( $mdBottomSheet ) {
-          this.actions = [
+          var vm = this;
+
+          vm.actions = [
             { name: 'Action1'   },
             { name: 'Action2' },
             { name: 'Action3' },
             { name: 'Action4' }
           ];
-          this.performAction = function(action) {
+
+          vm.performAction = function(action) {
             $mdBottomSheet.hide(action);
           };
         }
     }
 
+    function showSimpleToast(title) {
+      $mdToast.show(
+        $mdToast.simple()
+          .content(title)
+          .hideDelay(2000)
+          .position('top right')
+      );
+    }
   }
 
 })();

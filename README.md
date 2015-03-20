@@ -1,6 +1,8 @@
 # Angular material admin dashboard
 
-[DEMO](http://micrum.github.io/angular-material-admin)
+This application built without any custom CSS.
+
+[DEMO](http://micrum.github.io/angular-material-admin/site/)
 
 ## Getting started
 
@@ -16,4 +18,9 @@ Install dependencies:
 Run development web-server:
 
     $ gulp serve
-
+    
+## TODO
+    
+* md-card based widget     
+* table
+* dashboard
