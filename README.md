@@ -1,8 +1,8 @@
 # Angular material admin dashboard
 
-This application built without any custom CSS.
+This application based on [Angular Material](https://github.com/angular/material).
 
-[DEMO](http://micrum.github.io/angular-material-admin/site/)
+Check out [DEMO](http://micrum.github.io/angular-material-admin/site/)
 
 ## Getting started
 
@@ -27,6 +27,7 @@ Run development web-server:
     
 ## TODO
     
-* md-card based widget     
-* table
-* dashboard
+* Adjust grid-list on dashboard    
+* Page with table
+* Adjust top toolbar select 
+* Organize CSS

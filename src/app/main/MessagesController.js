@@ -13,10 +13,10 @@
     vm.messages = [ ];
 
     messagesService
-          .loadAllItems()
-          .then(function(messages) {
-            vm.messages = [].concat(messages);
-          });
+      .loadAllItems()
+      .then(function(messages) {
+        vm.messages = [].concat(messages);
+      });
   }
 
 })();

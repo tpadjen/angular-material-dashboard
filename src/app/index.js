@@ -15,49 +15,73 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
       })
       .state('home.dashboard', {
         url: '/dashboard',
-        templateUrl: 'app/partials/dashboard.html',
-        controller: 'DashboardController',
-        controllerAs: 'vm',
+        templateUrl: 'app/pages/dashboard.html',
         data: {
           title: 'Dashboard'
         }
       })
       .state('home.profile', {
         url: '/profile',
-        templateUrl: 'app/partials/profile.html',
+        templateUrl: 'app/pages/profile.html',
         controller: 'ProfileController',
         controllerAs: 'vm',
         data: {
           title: 'Profile'
         }
       })
-      .state('home.messages', {
-        url: '/messages',
-        controller: 'MessagesController',
+      .state('home.table', {
+        url: '/table',
+        controller: 'TableController',
         controllerAs: 'vm',
-        templateUrl: 'app/partials/messages.html',
+        templateUrl: 'app/pages/table.html',
         data: {
-          title: 'Messages'
-        }
-      })
-      .state('home.search', {
-        url: '/search',
-        templateUrl: 'app/partials/search.html',
-        controller: 'SearchController',
-        controllerAs: 'vm',
-        data: {
-          title: 'Search'
+          title: 'Table'
         }
       });
 
     $urlRouterProvider.otherwise('/dashboard');
 
-    $mdThemingProvider.theme('default')
-      .primaryPalette('teal')
-      .accentPalette('orange');
+    $mdThemingProvider
+      .theme('default')
+        .primaryPalette('teal')
+        .accentPalette('orange');
+
+    $mdThemingProvider.theme('dark', 'default')
+      .primaryPalette('orange')
+      .dark();
+
+    $mdThemingProvider.theme('grey', 'default')
+      .primaryPalette('grey');
 
     $mdIconProvider
       .defaultIconSet('assets/images/icons.svg', 128)
       .icon('menu', 'assets/images/menu.svg', 24)
       .icon('user', 'assets/images/user.svg', 64);
+  })
+
+  .directive('panelWidget', function() {
+    return {
+      restrict: 'E',
+      replace: true,
+      transclude: true,
+      scope: { title: '@', template: '@' },
+      template: '' +
+      '<section layout-margin class="md-whiteframe-z1">' +
+      '  <md-toolbar md-theme="grey" class="md-hue-1">' +
+      '    <div class="md-toolbar-tools">' +
+      '     <h3>{{title}}</h3>' +
+      '     <span flex></span>' +
+      '     <md-button>Options</md-button>' +
+      '    </div>' +
+      '  </md-toolbar>' +
+      '  <div ng-include="template"/>' +
+      '</section>',
+      compile: function(element, attrs, linker) {
+        return function(scope, element) {
+          linker(scope, function(clone) {
+            element.append(clone);
+          });
+        };
+      }
+    };
   });

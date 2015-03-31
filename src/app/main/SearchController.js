@@ -18,9 +18,9 @@
     function querySearch (query) {
       var results = query ? vm.countries.filter( createFilterFor(query) ) : [],
         deferred;
-        deferred = $q.defer();
-        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-        return deferred.promise;
+      deferred = $q.defer();
+      $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+      return deferred.promise;
     }
 
     function createFilterFor(query) {
