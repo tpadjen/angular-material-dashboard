@@ -10,24 +10,18 @@
   function InfoPanelController($mdDialog) {
     var vm = this;
 
-    vm.launchAllowed = false;
-    vm.launchToMars = false;
-    vm.launchToVenus = false;
-    vm.checkLaunch = checkLaunch;
+    vm.buttonEnabled = false;
+    vm.reloadServer = 'Staging';
     vm.showAlert = showAlert;
     vm.startValue = 0;
     vm.bufferValue = 1;
-
-    function checkLaunch() {
-      vm.launchAllowed = vm.launchToMars || vm.launchToVenus;
-    }
 
     function showAlert() {
       vm.startValue = 100;
       vm.bufferValue = 100;
       alert = $mdDialog.alert({
-        title: 'Poyekhali!',
-        content: "Rockets launched!" + " To Mars: " + vm.launchToMars + ", to Venus: " +vm.launchToVenus,
+        title: 'Reloading done!',
+        content: vm.reloadServer + " server reloaded.",
         ok: 'Close'
       });
       setTimeout(function(){
