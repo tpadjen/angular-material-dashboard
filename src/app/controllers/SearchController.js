@@ -1,7 +1,7 @@
 (function(){
 
   angular
-    .module('admin')
+    .module('app')
     .controller('SearchController', [
       '$timeout', '$q', 'countriesService',
       SearchController
@@ -14,6 +14,7 @@
     vm.selectedCountry = null;
     vm.searchText = null;
     vm.querySearch = querySearch;
+    vm.disableCaching = true;
 
     function querySearch (query) {
       var results = query ? vm.countries.filter( createFilterFor(query) ) : [],
@@ -30,5 +31,4 @@
       };
     }
   }
-
 })();
