@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
-  'ngSanitize', 'ui.router', 'ngMaterial', 'app'])
+  'ngSanitize', 'ui.router', 'ngMaterial', 'nvd3', 'app'])
 
   .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider,
                     $mdIconProvider) {
@@ -43,51 +43,42 @@ angular.module('angularMaterialAdmin', ['ngAnimate', 'ngCookies', 'ngTouch',
 
     $mdThemingProvider
       .theme('default')
-        .primaryPalette('teal')
-        .accentPalette('orange');
+        .primaryPalette('grey', {
+          'default': '600'
+        })
+        .accentPalette('teal', {
+          'default': '500'
+        })
+        .warnPalette('defaultPrimary');
 
     $mdThemingProvider.theme('dark', 'default')
-      .primaryPalette('orange')
+      .primaryPalette('defaultPrimary')
       .dark();
 
     $mdThemingProvider.theme('grey', 'default')
       .primaryPalette('grey');
 
-    $mdThemingProvider.theme('red', 'default')
-      .primaryPalette('red');
+    $mdThemingProvider.theme('custom', 'default')
+      .primaryPalette('defaultPrimary', {
+        'hue-1': '50'
+    });
 
-    $mdIconProvider
-      .defaultIconSet('assets/images/icons.svg', 128)
-      .icon('menu', 'assets/images/menu.svg', 24)
-      .icon('user', 'assets/images/user.svg', 64);
-  })
+    $mdThemingProvider.definePalette('defaultPrimary', {
+      '50':  '#FFFFFF',
+      '100': 'rgb(255, 198, 197)',
+      '200': '#E75753',
+      '300': '#E75753',
+      '400': '#E75753',
+      '500': '#E75753',
+      '600': '#E75753',
+      '700': '#E75753',
+      '800': '#E75753',
+      '900': '#E75753',
+      'A100': '#E75753',
+      'A200': '#E75753',
+      'A400': '#E75753',
+      'A700': '#E75753'
+    });
 
-
-  .directive('panelWidget', function() {
-    return {
-      restrict: 'E',
-      replace: true,
-      transclude: true,
-      scope: { title: '@', template: '@', options: '@' },
-      template: '' +
-      '<section layout-margin class="md-whiteframe-z1">' +
-      '  <md-toolbar md-theme="grey" class="md-hue-1">' +
-      '    <div class="md-toolbar-tools">' +
-      '      <h3>{{title}}</h3>' +
-      '      <span flex></span>' +
-      '      <md-button ng-show="options" ng-click="$showOptions = !$showOptions" class="md-icon-button" aria-label="Show options">' +
-      '        <md-icon md-svg-icon="show"></md-icon>' +
-      '      </md-button>' +
-      '    </div>' +
-      '  </md-toolbar>' +
-      '  <div ng-include="template"/>' +
-      '</section>',
-      compile: function(element, attrs, linker) {
-        return function(scope, element) {
-          linker(scope, function(clone) {
-            element.append(clone);
-          });
-        };
-      }
-    };
+    $mdIconProvider.icon('user', 'assets/images/user.svg', 64);
   });
