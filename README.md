@@ -1,5 +1,7 @@
 # Angular Material Dashboard
 
+![promo-amd](src/assets/images/promo-amd.png)
+
 Responsive Angular admin dashboard with material design based on
 [Angular Material](https://github.com/angular/material).
 
